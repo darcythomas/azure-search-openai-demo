@@ -18,8 +18,18 @@ if (-not $pythonCmd) {
   $pythonCmd = Get-Command python3 -ErrorAction SilentlyContinue
 }
 
+$pythonCmd3 = Get-Command python3 -ErrorAction SilentlyContinue
+
+$pythonCmd = $pythonCmd3
+
+winget install -e --id Python.Python.3.10
+
+python --version
+
 Write-Host 'Creating python virtual environment "scripts/.venv"'
-Start-Process -FilePath ($pythonCmd).Source -ArgumentList "-m venv ./scripts/.venv" -Wait -NoNewWindow
+
+python -m venv ./scripts/.venv
+
 
 $venvPythonPath = "./scripts/.venv/scripts/python.exe"
 if (Test-Path -Path "/usr") {
@@ -27,7 +37,11 @@ if (Test-Path -Path "/usr") {
   $venvPythonPath = "./scripts/.venv/bin/python"
 }
 
+
+
 Write-Host 'Installing dependencies from "requirements.txt" into virtual environment'
+
+Start-Process -FilePath $venvPythonPath -ArgumentList " pip install --upgrade pip" -Wait -NoNewWindow
 Start-Process -FilePath $venvPythonPath -ArgumentList "-m pip install -r ./scripts/requirements.txt" -Wait -NoNewWindow
 
 Write-Host 'Running "prepdocs.py"'

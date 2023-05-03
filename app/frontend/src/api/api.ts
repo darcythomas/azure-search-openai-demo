@@ -21,8 +21,10 @@ export async function askApi(options: AskRequest): Promise<AskResponse> {
             }
         })
     });
+var body =  await response.text();
+console.log("body", body);
 
-    const parsedResponse: AskResponse = await response.json();
+    const parsedResponse: AskResponse = JSON.parse(body) //await response.json();
     if (response.status > 299 || !response.ok) {
         throw Error(parsedResponse.error || "Unknown error");
     }

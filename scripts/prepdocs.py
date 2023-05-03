@@ -42,6 +42,8 @@ args = parser.parse_args()
 
 # Use the current user identity to connect to Azure services unless a key is explicitly set for any of them
 azd_credential = AzureDeveloperCliCredential() if args.tenantid == None else AzureDeveloperCliCredential(tenant_id=args.tenantid, process_timeout=60)
+
+print(azd_credential)
 default_creds = azd_credential if args.searchkey == None or args.storagekey == None else None
 search_creds = default_creds if args.searchkey == None else AzureKeyCredential(args.searchkey)
 if not args.skipblobs:

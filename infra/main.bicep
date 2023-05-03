@@ -25,11 +25,12 @@ param storageResourceGroupName string = ''
 param storageResourceGroupLocation string = location
 param storageContainerName string = 'content'
 
-param openAiServiceName string = ''
+//param openAiServiceName string = ''
 param openAiResourceGroupName string = ''
-param openAiResourceGroupLocation string = location
+//param openAiResourceGroupLocation string = location
 
-param openAiSkuName string = 'S0'
+//param openAiSkuName string = 'S0'
+param openai_api_key string = ''
 
 param formRecognizerServiceName string = ''
 param formRecognizerResourceGroupName string = ''
@@ -38,9 +39,9 @@ param formRecognizerResourceGroupLocation string = location
 param formRecognizerSkuName string = 'S0'
 
 param gptDeploymentName string = 'davinci'
-param gptModelName string = 'text-davinci-003'
+//param gptModelName string = 'text-davinci-003'
 param chatGptDeploymentName string = 'chat'
-param chatGptModelName string = 'gpt-35-turbo'
+//param chatGptModelName string = 'gpt-35-turbo'
 
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
@@ -104,51 +105,52 @@ module backend 'core/host/appservice.bicep' = {
     appSettings: {
       AZURE_STORAGE_ACCOUNT: storage.outputs.name
       AZURE_STORAGE_CONTAINER: storageContainerName
-      AZURE_OPENAI_SERVICE: openAi.outputs.name
+     // AZURE_OPENAI_SERVICE: openAi.outputs.name
       AZURE_SEARCH_INDEX: searchIndexName
       AZURE_SEARCH_SERVICE: searchService.outputs.name
       AZURE_OPENAI_GPT_DEPLOYMENT: gptDeploymentName
       AZURE_OPENAI_CHATGPT_DEPLOYMENT: chatGptDeploymentName
+      OPENAI_API_KEY: openai_api_key
     }
   }
 }
 
-module openAi 'core/ai/cognitiveservices.bicep' = {
-  name: 'openai'
-  scope: openAiResourceGroup
-  params: {
-    name: !empty(openAiServiceName) ? openAiServiceName : '${abbrs.cognitiveServicesAccounts}${resourceToken}'
-    location: openAiResourceGroupLocation
-    tags: tags
-    sku: {
-      name: openAiSkuName
-    }
-    deployments: [
-      {
-        name: gptDeploymentName
-        model: {
-          format: 'OpenAI'
-          name: gptModelName
-          version: '1'
-        }
-        scaleSettings: {
-          scaleType: 'Standard'
-        }
-      }
-      {
-        name: chatGptDeploymentName
-        model: {
-          format: 'OpenAI'
-          name: chatGptModelName
-          version: '0301'
-        }
-        scaleSettings: {
-          scaleType: 'Standard'
-        }
-      }
-    ]
-  }
-}
+// module openAi 'core/ai/cognitiveservices.bicep' = {
+//   name: 'openai'
+//   scope: openAiResourceGroup
+//   params: {
+//     name: !empty(openAiServiceName) ? openAiServiceName : '${abbrs.cognitiveServicesAccounts}${resourceToken}'
+//     location: openAiResourceGroupLocation
+//     tags: tags
+//     sku: {
+//       name: openAiSkuName
+//     }
+//     deployments: [
+//       {
+//         name: gptDeploymentName
+//         model: {
+//           format: 'OpenAI'
+//           name: gptModelName
+//           version: '1'
+//         }
+//         scaleSettings: {
+//           scaleType: 'Standard'
+//         }
+//       }
+//       {
+//         name: chatGptDeploymentName
+//         model: {
+//           format: 'OpenAI'
+//           name: chatGptModelName
+//           version: '0301'
+//         }
+//         scaleSettings: {
+//           scaleType: 'Standard'
+//         }
+//       }
+//     ]
+//   }
+// }
 
 module formRecognizer 'core/ai/cognitiveservices.bicep' = {
   name: 'formrecognizer'
@@ -303,7 +305,8 @@ output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_RESOURCE_GROUP string = resourceGroup.name
 
-output AZURE_OPENAI_SERVICE string = openAi.outputs.name
+//output AZURE_OPENAI_SERVICE string = openAi.outputs.name
+output OPENAI_API_KEY string = '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'
 output AZURE_OPENAI_RESOURCE_GROUP string = openAiResourceGroup.name
 output AZURE_OPENAI_GPT_DEPLOYMENT string = gptDeploymentName
 output AZURE_OPENAI_CHATGPT_DEPLOYMENT string = chatGptDeploymentName
