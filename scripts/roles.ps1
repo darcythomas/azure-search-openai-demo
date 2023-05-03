@@ -13,7 +13,8 @@ $roles = @(
     "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1",
     "ba92f5b4-2d11-453d-a403-e96b0029c9fe",
     "1407120a-92aa-4202-b7e9-c0e197c71c8f",
-    "8ebe5a00-799e-43f5-93ac-243d3dce84a7"
+    "8ebe5a00-799e-43f5-93ac-243d3dce84a7",
+    "8e3af657-a8ff-443c-a75c-2fe8c4bcb635" #Owner!!!
 )
 
 if ([string]::IsNullOrEmpty($env:AZURE_RESOURCE_GROUP)) {

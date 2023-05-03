@@ -40,7 +40,7 @@ param formRecognizerSkuName string = 'S0'
 
 param gptDeploymentName string = 'davinci'
 //param gptModelName string = 'text-davinci-003'
-param chatGptDeploymentName string = 'chat'
+param chatGptDeploymentName string = 'gpt-35-turbo' //'chat'
 //param chatGptModelName string = 'gpt-35-turbo'
 
 @description('Id of the user or app to assign application roles')
@@ -265,7 +265,7 @@ module searchContribRoleUser 'core/security/role.bicep' = {
   name: 'search-contrib-role-user'
   params: {
     principalId: principalId
-    roleDefinitionId: '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
+    roleDefinitionId: '8e3af657-a8ff-443c-a75c-2fe8c4bcb635' //'8ebe5a00-799e-43f5-93ac-243d3dce84a7'
     principalType: 'User'
   }
 }
@@ -306,7 +306,7 @@ output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_RESOURCE_GROUP string = resourceGroup.name
 
 //output AZURE_OPENAI_SERVICE string = openAi.outputs.name
-output OPENAI_API_KEY string = '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'
+output OPENAI_API_KEY string = openai_api_key
 output AZURE_OPENAI_RESOURCE_GROUP string = openAiResourceGroup.name
 output AZURE_OPENAI_GPT_DEPLOYMENT string = gptDeploymentName
 output AZURE_OPENAI_CHATGPT_DEPLOYMENT string = chatGptDeploymentName
