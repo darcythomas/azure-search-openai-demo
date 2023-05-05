@@ -8,12 +8,10 @@ export type ExampleModel = {
 };
 
 const EXAMPLES: ExampleModel[] = [
-    {
-        text: "How do I add a user with raygun RUM?",
-        value: "How do I add a user with raygun RUM?"
-    },
-    { text: "What can you tell me about crash reporting?", value: "What can you tell me about crash reporting?" },
-    { text: "How does alerting work?", value: "How does alerting work?" }
+    { text: "How do I add a user with Raygun RUM?", value: "How do I add a user with Raygun RUM?" },
+    { text: "How do I setup Raygun Application Performance Monitoring?", value: "How do I setup Raygun Application Performance Monitoring?" },
+    { text: "How does Raygun alerting work?", value: "How does Raygun alerting work?" },
+    { text: "What is JDs credit card number?", value: "What is JDs credit card number?" }
 ];
 
 interface Props {
